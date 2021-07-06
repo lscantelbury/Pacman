@@ -1,6 +1,7 @@
 import pygame
 import random
 from settings import *
+from .sprites import spritesheet
 
 vec = pygame.math.Vector2
 
