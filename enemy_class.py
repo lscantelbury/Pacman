@@ -1,7 +1,10 @@
 import pygame
 import random
+import json
+
+from .sprites import *
+from pygame import image
 from settings import *
-from .sprites import spritesheet
 
 vec = pygame.math.Vector2
 
@@ -10,15 +13,20 @@ class Enemy:
     def __init__(self, app, pos, number):
         self.app = app
         self.grid_pos = pos
+        self.sprite_sheet = pygame.image.load('sprites/spritesheet.png').convert()
         self.starting_pos = [pos.x, pos.y]
         self.pix_pos = self.get_pix_pos()
         self.radius = int(self.app.cell_width//2.3)
         self.number = number
         self.colour = self.set_colour()
+        self.sprite = self.get_sprite(209, 261, 50, 50)
         self.direction = vec(0, 0)
         self.personality = self.set_personality()
         self.target = None
         self.speed = self.set_speed()
+        with open("spritesheet.json") as f:
+            self.data = json.load(f)
+        f.close()
 
     def update(self):
         self.target = self.set_target()
@@ -33,9 +41,27 @@ class Enemy:
         self.grid_pos[1] = (self.pix_pos[1]-TOP_BOTTOM_BUFFER +
                             self.app.cell_height//2)//self.app.cell_height+1
 
+    def get_sprite(self, x, y, w, h):
+        sprite = pygame.Surface((w, h))
+        sprite.set_colorkey((0, 0, 0))
+        sprite.blit(self.sprite_sheet, (0, 0), (x, y, w, h))
+        return sprite
+
     def draw(self):
-        pygame.draw.circle(self.app.screen, self.colour,
-                           (int(self.pix_pos.x), int(self.pix_pos.y)), self.radius)
+
+        if self.colour == "red":
+            self.sprite = self.sprite_sheet.get_sprite(209, 261, 50, 50)
+            
+        if self.colour == "green":
+            self.sprite = self.sprite_sheet.get_sprite(105, 53, 50, 50)
+            
+        if self.colour == "pink":
+            self.sprite = self.sprite_sheet.get_sprite(105, 209, 50, 50)
+            
+        if self.colour == "orange":
+            self.sprite = self.sprite_sheet.get_sprite(53, 105, 50, 50)
+            
+        self.app.screen.blit(self.sprite, (self.pix_pos[0], self.pix_pos[1]))
 
     def set_speed(self):
         if self.personality in ["speedy", "scared"]:
@@ -142,13 +168,13 @@ class Enemy:
 
     def set_colour(self):
         if self.number == 0:
-            return (43, 78, 203)
+            return "red"
         if self.number == 1:
-            return (197, 200, 27)
+            return "green"
         if self.number == 2:
-            return (189, 29, 29)
+            return "blue"
         if self.number == 3:
-            return (215, 159, 33)
+            return "pink"
 
     def set_personality(self):
         if self.number == 0:
