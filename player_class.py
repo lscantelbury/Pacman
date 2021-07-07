@@ -7,13 +7,12 @@ class Player:
     def __init__(self, app, pos):
         self.app = app
         self.sprite_sheet = pygame.image.load('sprites/spritesheet.png').convert()
-        self.sprite = self.get_sprite(209, 261, 50, 50)
         self.sprite_list = []
         self.current_sprite = 0
         self.starting_pos = [pos.x, pos.y]
         self.grid_pos = pos
         self.pix_pos = self.get_pix_pos()
-        self.direction = vec(1, 0)
+        self.direction = vec(0, 0)
         self.stored_direction = None
         self.able_to_move = True
         self.current_score = 0
@@ -26,7 +25,7 @@ class Player:
         if self.time_to_move():
             if self.stored_direction != None:
                 self.direction = self.stored_direction
-                
+
             self.sprite_list = []
             self.able_to_move = self.can_move()
         # Setting grid position in reference to pix pos
@@ -43,6 +42,9 @@ class Player:
             self.current_sprite += 0.2
 
     def draw(self):
+
+        if self.direction == vec(0, 0): # not moving:
+            self.sprite_list.append(self.get_sprite(209, 105, 50, 50))
             
         if self.direction == vec(-1, 0): # left
             self.sprite_list.append(self.get_sprite(53, 157, 50, 50))
