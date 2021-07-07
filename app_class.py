@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time
 import copy
 from settings import *
 from player_class import *
@@ -167,10 +168,13 @@ class App:
         self.player.update()
         for enemy in self.enemies:
             enemy.update()
-
+            
         for enemy in self.enemies:
             if enemy.grid_pos == self.player.grid_pos:
                 self.remove_life()
+                pygame.mixer.Sound.play(self.player.death_sound)
+
+                
 
     def playing_draw(self):
         self.screen.fill(BLACK)
@@ -181,6 +185,7 @@ class App:
                        self.screen, [90, 10], 18, WHITE, START_FONT)
         self.draw_text('HIGH SCORE: 0', self.screen, [WIDTH//2+60, 10], 18, WHITE, START_FONT)
         self.player.draw()
+
         for enemy in self.enemies:
             enemy.draw()
         pygame.display.update()
@@ -194,6 +199,8 @@ class App:
             self.player.pix_pos = self.player.get_pix_pos()
             self.player.direction *= 0
             for enemy in self.enemies:
+                if enemy.grid_pos == self.player.grid_pos:
+                    enemy.sprite = enemy.get_sprite(313, 157, 50, 50)
                 enemy.grid_pos = vec(enemy.starting_pos)
                 enemy.pix_pos = enemy.get_pix_pos()
                 enemy.direction *= 0

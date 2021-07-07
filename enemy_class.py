@@ -89,6 +89,7 @@ class Enemy:
                 self.sprite = self.get_sprite(1, 105, 50, 50)
             if self.direction == vec(0, -1): # up
                 self.sprite = self.get_sprite(157, 105, 50, 50)
+        
 
         self.app.screen.blit(self.sprite, (self.pix_pos[0]-15, self.pix_pos[1]-15))
 

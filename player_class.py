@@ -7,6 +7,7 @@ class Player:
     def __init__(self, app, pos):
         self.app = app
         self.chomp = pygame.mixer.Sound('sound/chomp.ogg')
+        self.death_sound = pygame.mixer.Sound('sound/death.ogg')
         self.sprite_sheet = pygame.image.load('sprites/spritesheet.png').convert()
         self.sprite_list = []
         self.current_sprite = 0
