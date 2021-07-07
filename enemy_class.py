@@ -2,7 +2,7 @@ import pygame
 import random
 import json
 
-from .sprites import *
+# from .sprites import *
 from pygame import image
 from settings import *
 
@@ -24,7 +24,7 @@ class Enemy:
         self.personality = self.set_personality()
         self.target = None
         self.speed = self.set_speed()
-        with open("spritesheet.json") as f:
+        with open("sprites/spritesheet.json") as f:
             self.data = json.load(f)
         f.close()
 
@@ -44,22 +44,22 @@ class Enemy:
     def get_sprite(self, x, y, w, h):
         sprite = pygame.Surface((w, h))
         sprite.set_colorkey((0, 0, 0))
-        sprite.blit(self.sprite_sheet, (0, 0), (x, y, w, h))
+        sprite.blit(self.sprite_sheet, pygame.Rect(-x, -y, w, h))
         return sprite
 
     def draw(self):
 
         if self.colour == "red":
-            self.sprite = self.sprite_sheet.get_sprite(209, 261, 50, 50)
+            self.sprite = self.get_sprite(209, 261, 50, 50)
             
         if self.colour == "green":
-            self.sprite = self.sprite_sheet.get_sprite(105, 53, 50, 50)
+            self.sprite = self.get_sprite(105, 53, 50, 50)
             
         if self.colour == "pink":
-            self.sprite = self.sprite_sheet.get_sprite(105, 209, 50, 50)
+            self.sprite = self.get_sprite(105, 209, 50, 50)
             
         if self.colour == "orange":
-            self.sprite = self.sprite_sheet.get_sprite(53, 105, 50, 50)
+            self.sprite = self.get_sprite(53, 105, 50, 50)
             
         self.app.screen.blit(self.sprite, (self.pix_pos[0], self.pix_pos[1]))
 
