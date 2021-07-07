@@ -18,7 +18,7 @@ WHITE = (255, 255, 255)
 
 # font settings
 START_TEXT_SIZE = 50
-START_FONT = 'arial black'
+START_FONT = 'verdana'
 
 # player settings
 # PLAYER_START_POS = vec(2, 2)

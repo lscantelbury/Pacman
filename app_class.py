@@ -132,13 +132,14 @@ class App:
         pass
 
     def start_draw(self):
-        self.screen.fill(BLACK)
+        bg = pygame.image.load('maze.png')
+        self.screen.blit(bg, (25,25))
         self.draw_text('PUSH SPACE BAR', self.screen, [
-                       WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
+                       WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (255, 255, 0), START_FONT, centered=True)
         self.draw_text('1 PLAYER ONLY', self.screen, [
-                       WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (44, 167, 198), START_FONT, centered=True)
-        self.draw_text('HIGH SCORE', self.screen, [4, 0],
-                       START_TEXT_SIZE, (255, 255, 255), START_FONT)
+                       WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (50, 0, 255), START_FONT, centered=True)
+        #self.draw_text('HIGH SCORE', self.screen, [4, 0],
+        #               START_TEXT_SIZE, (255, 255, 255), START_FONT)
         pygame.display.update()
 
 ########################### PLAYING FUNCTIONS ##################################
