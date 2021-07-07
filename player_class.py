@@ -6,6 +6,7 @@ vec = pygame.math.Vector2
 class Player:
     def __init__(self, app, pos):
         self.app = app
+        self.chomp = pygame.mixer.Sound('sound/chomp.ogg')
         self.sprite_sheet = pygame.image.load('sprites/spritesheet.png').convert()
         self.sprite_list = []
         self.current_sprite = 0
@@ -20,6 +21,7 @@ class Player:
         self.lives = 3
 
     def update(self):
+        pygame.mixer.Sound.stop(self.chomp)
         if self.able_to_move:
             self.pix_pos += self.direction*self.speed
         if self.time_to_move():
@@ -34,6 +36,7 @@ class Player:
         self.grid_pos[1] = (self.pix_pos[1]-TOP_BOTTOM_BUFFER +
                             self.app.cell_height//2)//self.app.cell_height+1
         if self.on_coin():
+            pygame.mixer.Sound.play(self.chomp)
             self.eat_coin()
         
         if self.current_sprite >= len(self.sprite_list):

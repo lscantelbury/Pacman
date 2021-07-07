@@ -7,6 +7,8 @@ from enemy_class import *
 
 
 pygame.init()
+pygame.mixer.init()
+
 vec = pygame.math.Vector2
 
 
@@ -26,8 +28,10 @@ class App:
         self.load()
         self.player = Player(self, vec(self.p_pos))
         self.make_enemies()
+        self.start_sound = pygame.mixer.Sound("sound/beginning.ogg")
 
     def run(self):
+        pygame.mixer.Sound.play(self.start_sound)
         while self.running:
             if self.state == 'start':
                 self.start_events()
@@ -127,6 +131,7 @@ class App:
                 self.running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.state = 'playing'
+                pygame.mixer.Sound.stop(self.start_sound)
 
     def start_update(self):
         pass
