@@ -53,10 +53,10 @@ class App:
         font = pygame.font.SysFont(font_name, size)
         text = font.render(words, False, colour)
         text_size = text.get_size()
-        if centered:
-            pos[0] = pos[0]-text_size[0]//2
-            pos[1] = pos[1]-text_size[1]//2
-        screen.blit(text, pos)
+
+        text_rect = text.get_rect(center = pos)
+        pygame.draw.rect(screen, (0,0,100), text_rect, 0, 5)
+        screen.blit(text, text_rect)
 
     def load(self):
         self.background = pygame.image.load('maze.png')
@@ -134,10 +134,10 @@ class App:
     def start_draw(self):
         bg = pygame.image.load('maze.png')
         self.screen.blit(bg, (25,25))
-        self.draw_text('PUSH SPACE BAR', self.screen, [
+        self.draw_text('PUSH "SPACE" BAR', self.screen, [
                        WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (255, 255, 0), START_FONT, centered=True)
         self.draw_text('1 PLAYER ONLY', self.screen, [
-                       WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (50, 0, 255), START_FONT, centered=True)
+                       WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (255, 255, 255), START_FONT, centered=True)
         #self.draw_text('HIGH SCORE', self.screen, [4, 0],
         #               START_TEXT_SIZE, (255, 255, 255), START_FONT)
         pygame.display.update()
@@ -173,8 +173,8 @@ class App:
         self.draw_coins()
         # self.draw_grid()
         self.draw_text('CURRENT SCORE: {}'.format(self.player.current_score),
-                       self.screen, [60, 0], 18, WHITE, START_FONT)
-        self.draw_text('HIGH SCORE: 0', self.screen, [WIDTH//2+60, 0], 18, WHITE, START_FONT)
+                       self.screen, [90, 10], 18, WHITE, START_FONT)
+        self.draw_text('HIGH SCORE: 0', self.screen, [WIDTH//2+60, 10], 18, WHITE, START_FONT)
         self.player.draw()
         for enemy in self.enemies:
             enemy.draw()
