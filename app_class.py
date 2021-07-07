@@ -105,6 +105,8 @@ class App:
         self.player.grid_pos = vec(self.player.starting_pos)
         self.player.pix_pos = self.player.get_pix_pos()
         self.player.direction *= 0
+        self.player.sprite_list = []
+        self.player.current_sprite = 0
         for enemy in self.enemies:
             enemy.grid_pos = vec(enemy.starting_pos)
             enemy.pix_pos = enemy.get_pix_pos()
