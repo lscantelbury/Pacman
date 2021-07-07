@@ -81,8 +81,6 @@ class App:
                                                                   self.cell_width, self.cell_height))
 
     def make_enemies(self):
-        #for idx, pos in enumerate(self.e_pos):
-         #   self.enemies.append(Enemy(self, vec(pos), idx))
         self.enemies.append(Enemy(self, vec(self.e_pos[0]), 0))
         self.enemies.append(Enemy(self, vec(self.e_pos[1]), 1))
         self.enemies.append(Enemy(self, vec(self.e_pos[2]), 2))
@@ -199,7 +197,6 @@ class App:
             pygame.draw.circle(self.screen, (124, 123, 7),
                                (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
                                 int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
-
 ########################### GAME OVER FUNCTIONS ################################
 
     def game_over_events(self):

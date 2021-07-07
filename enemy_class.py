@@ -204,10 +204,6 @@ class Enemy:
             return "orange"
         if self.number == 3:
             return "pink"
-        if self.number == 4:
-            return "blue"
-        if self.number == 5:
-            return "purple"
 
     def set_personality(self):
         if self.number == 0:
