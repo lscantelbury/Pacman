@@ -213,7 +213,8 @@ class App:
         pass
 
     def game_over_draw(self):
-        self.screen.fill(BLACK)
+        bg = pygame.image.load('maze.png')
+        self.screen.blit(bg, (25, 25))
         quit_text = "Press the escape button to QUIT"
         again_text = "Press SPACE bar to PLAY AGAIN"
         self.draw_text("GAME OVER", self.screen, [WIDTH//2, 100],  52, RED, "arial", centered=True)
