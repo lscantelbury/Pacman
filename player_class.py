@@ -6,6 +6,8 @@ vec = pygame.math.Vector2
 class Player:
     def __init__(self, app, pos):
         self.app = app
+        self.sprite_sheet = pygame.image.load('sprites/spritesheet.png').convert()
+        self.sprite = self.get_sprite(209, 261, 50, 50)
         self.starting_pos = [pos.x, pos.y]
         self.grid_pos = pos
         self.pix_pos = self.get_pix_pos()
@@ -32,9 +34,20 @@ class Player:
             self.eat_coin()
 
     def draw(self):
-        pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (int(self.pix_pos.x),
-                                                            int(self.pix_pos.y)), self.app.cell_width//2-2)
+        #pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (int(self.pix_pos.x),
+        #                                                   int(self.pix_pos.y)), self.app.cell_width//2-2)
 
+        if self.direction == vec(-1, 0): # left
+            self.sprite = self.get_sprite(53, 157, 50, 50)
+        if self.direction == vec(1, 0): # right
+            self.sprite = self.get_sprite(157, 157, 50, 50)
+        if self.direction == vec(0, 1): # down
+            self.sprite = self.get_sprite(261, 105, 50, 50)
+        if self.direction == vec(0, -1): # up
+            self.sprite = self.get_sprite(262, 157, 50, 50)
+
+        self.app.screen.blit(self.sprite, ((int(self.pix_pos.x)- 15),
+                                            (int(self.pix_pos.y)- 15)))
         # Drawing player lives
         for x in range(self.lives):
             pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (30 + 20*x, HEIGHT - 15), 7)
@@ -42,6 +55,13 @@ class Player:
         # Drawing the grid pos rect
         # pygame.draw.rect(self.app.screen, RED, (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_BUFFER//2,
         #                                         self.grid_pos[1]*self.app.cell_height+TOP_BOTTOM_BUFFER//2, self.app.cell_width, self.app.cell_height), 1)
+   
+    def get_sprite(self, x, y, w, h):
+        sprite = pygame.Surface((w, h))
+        sprite.set_colorkey((0, 0, 0))
+        sprite.blit(self.sprite_sheet, pygame.Rect(-x, -y, w, h))
+        sprite = pygame.transform.scale(sprite, (30, 30))
+        return sprite
 
     def on_coin(self):
         if self.grid_pos in self.app.coins:
