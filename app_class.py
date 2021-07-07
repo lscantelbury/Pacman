@@ -81,9 +81,13 @@ class App:
                                                                   self.cell_width, self.cell_height))
 
     def make_enemies(self):
-        for idx, pos in enumerate(self.e_pos):
-            self.enemies.append(Enemy(self, vec(pos), idx))
-
+        #for idx, pos in enumerate(self.e_pos):
+         #   self.enemies.append(Enemy(self, vec(pos), idx))
+        self.enemies.append(Enemy(self, vec(self.e_pos[0]), 0))
+        self.enemies.append(Enemy(self, vec(self.e_pos[1]), 1))
+        self.enemies.append(Enemy(self, vec(self.e_pos[2]), 2))
+        self.enemies.append(Enemy(self, vec(self.e_pos[3]), 3))
+        
     def draw_grid(self):
         for x in range(WIDTH//self.cell_width):
             pygame.draw.line(self.background, GREY, (x*self.cell_width, 0),

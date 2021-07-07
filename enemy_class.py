@@ -45,23 +45,52 @@ class Enemy:
         sprite = pygame.Surface((w, h))
         sprite.set_colorkey((0, 0, 0))
         sprite.blit(self.sprite_sheet, pygame.Rect(-x, -y, w, h))
+        sprite = pygame.transform.scale(sprite, (30, 30))
         return sprite
 
     def draw(self):
 
         if self.colour == "red":
-            self.sprite = self.get_sprite(209, 261, 50, 50)
+            if self.direction == vec(-1, 0): # left
+                self.sprite = self.get_sprite(209, 261, 50, 50)
+            if self.direction == vec(1, 0): # right
+                self.sprite = self.get_sprite(261, 261, 50, 50)
+            if self.direction == vec(0, 1): # down
+                self.sprite = self.get_sprite(157, 261, 50, 50)
+            if self.direction == vec(0, -1): # up
+                self.sprite = self.get_sprite(313, 1, 50, 50)
             
         if self.colour == "green":
-            self.sprite = self.get_sprite(105, 53, 50, 50)
+            if self.direction == vec(-1, 0): # left
+                self.sprite = self.get_sprite(105, 53, 50, 50)
+            if self.direction == vec(1, 0): # right
+                self.sprite = self.get_sprite(157, 53, 50, 50)
+            if self.direction == vec(0, 1): # down
+                self.sprite = self.get_sprite(53, 53, 50, 50)
+            if self.direction == vec(0, -1): # up
+                self.sprite = self.get_sprite(209, 53, 50, 50)
             
         if self.colour == "pink":
-            self.sprite = self.get_sprite(105, 209, 50, 50)
+            if self.direction == vec(-1, 0): # left
+                self.sprite = self.get_sprite(53, 209, 50, 50)
+            if self.direction == vec(1, 0): # right
+                self.sprite = self.get_sprite(157, 209, 50, 50)
+            if self.direction == vec(0, 1): # down
+                self.sprite = self.get_sprite(53, 209, 50, 50)
+            if self.direction == vec(0, -1): # up
+                self.sprite = self.get_sprite(209, 209, 50, 50)
             
         if self.colour == "orange":
-            self.sprite = self.get_sprite(53, 105, 50, 50)
-            
-        self.app.screen.blit(self.sprite, (self.pix_pos[0], self.pix_pos[1]))
+            if self.direction == vec(-1, 0): # left
+                self.sprite = self.get_sprite(53, 105, 50, 50)
+            if self.direction == vec(1, 0): # right
+                self.sprite = self.get_sprite(105, 105, 50, 50)
+            if self.direction == vec(0, 1): # down
+                self.sprite = self.get_sprite(1, 105, 50, 50)
+            if self.direction == vec(0, -1): # up
+                self.sprite = self.get_sprite(157, 105, 50, 50)
+
+        self.app.screen.blit(self.sprite, (self.pix_pos[0]-15, self.pix_pos[1]-15))
 
     def set_speed(self):
         if self.personality in ["speedy", "scared"]:
@@ -172,9 +201,13 @@ class Enemy:
         if self.number == 1:
             return "green"
         if self.number == 2:
-            return "blue"
+            return "orange"
         if self.number == 3:
             return "pink"
+        if self.number == 4:
+            return "blue"
+        if self.number == 5:
+            return "purple"
 
     def set_personality(self):
         if self.number == 0:
