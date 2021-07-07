@@ -194,7 +194,7 @@ class App:
 
     def draw_coins(self):
         for coin in self.coins:
-            pygame.draw.circle(self.screen, (124, 123, 7),
+            pygame.draw.circle(self.screen, (255, 255, 0),
                                (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
                                 int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
 ########################### GAME OVER FUNCTIONS ################################
