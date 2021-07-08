@@ -24,3 +24,6 @@ START_FONT = 'verdana'
 # PLAYER_START_POS = vec(2, 2)
 
 # mob settings
+
+LEFT_BOUNDARY = (31.0, 315.0)
+RIGHT_BOUNDARY = (581.0, 315.0)
