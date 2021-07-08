@@ -135,6 +135,7 @@ class Enemy:
         next_cell = self.find_next_cell_in_path(target)
         xdir = next_cell[0] - self.grid_pos[0]
         ydir = next_cell[1] - self.grid_pos[1]
+
         return vec(xdir, ydir)
 
     def find_next_cell_in_path(self, target):

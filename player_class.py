@@ -118,9 +118,15 @@ class Player:
                    (self.grid_pos[1] * self.app.cell_height) +
                    TOP_BOTTOM_BUFFER // 2 + self.app.cell_height // 2)
 
-        print(self.grid_pos, self.pix_pos)
-
     def time_to_move(self):
+        pos = (self.pix_pos.x, self.pix_pos.y)
+        if pos <= LEFT_BOUNDARY:  # teleports to the right
+            self.pix_pos.x = RIGHT_BOUNDARY[0]
+            self.pix_pos.y = RIGHT_BOUNDARY[1]
+        if pos >= RIGHT_BOUNDARY:  # teleports to the left
+            self.pix_pos.x = LEFT_BOUNDARY[0]
+            self.pix_pos.y = LEFT_BOUNDARY[1]
+
         if int(self.pix_pos.x + TOP_BOTTOM_BUFFER // 2) % self.app.cell_width == 0:
             if self.direction == vec(1, 0) or self.direction == vec(-1, 0) or self.direction == vec(0, 0):
                 return True
