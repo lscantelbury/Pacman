@@ -6,7 +6,6 @@ from settings import *
 from player_class import *
 from enemy_class import *
 
-
 pygame.init()
 pygame.mixer.init()
 
@@ -19,8 +18,9 @@ class App:
         self.clock = pygame.time.Clock()
         self.running = True
         self.state = 'start'
-        self.cell_width = MAZE_WIDTH//COLS
-        self.cell_height = MAZE_HEIGHT//ROWS
+        self.cell_width = MAZE_WIDTH // COLS
+        self.cell_height = MAZE_HEIGHT // ROWS
+        self.background = None
         self.walls = []
         self.coins = []
         self.enemies = []
@@ -52,15 +52,14 @@ class App:
         pygame.quit()
         sys.exit()
 
-############################ HELPER FUNCTIONS ##################################
+    ############################ HELPER FUNCTIONS ##################################
 
     def draw_text(self, words, screen, pos, size, colour, font_name, centered=False):
         font = pygame.font.SysFont(font_name, size)
         text = font.render(words, False, colour)
-        text_size = text.get_size()
 
-        text_rect = text.get_rect(center = pos)
-        pygame.draw.rect(screen, (0,0,100), text_rect, 0, 5)
+        text_rect = text.get_rect(center=pos)
+        pygame.draw.rect(screen, (0, 0, 100), text_rect, 0, 5)
         screen.blit(text, text_rect)
 
     def load(self):
@@ -82,7 +81,7 @@ class App:
                     elif char in ["2", "3", "4", "5"]:
                         self.e_pos.append([xidx, yidx])
                     elif char == "B":
-                        pygame.draw.rect(self.background, BLACK, (xidx*self.cell_width, yidx*self.cell_height,
+                        pygame.draw.rect(self.background, BLACK, (xidx * self.cell_width, yidx * self.cell_height,
                                                                   self.cell_width, self.cell_height))
 
     def make_enemies(self):
@@ -90,14 +89,14 @@ class App:
         self.enemies.append(Enemy(self, vec(self.e_pos[1]), 1))
         self.enemies.append(Enemy(self, vec(self.e_pos[2]), 2))
         self.enemies.append(Enemy(self, vec(self.e_pos[3]), 3))
-        
+
     def draw_grid(self):
-        for x in range(WIDTH//self.cell_width):
-            pygame.draw.line(self.background, GREY, (x*self.cell_width, 0),
-                             (x*self.cell_width, HEIGHT))
-        for x in range(HEIGHT//self.cell_height):
-            pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
-                             (WIDTH, x*self.cell_height))
+        for x in range(WIDTH // self.cell_width):
+            pygame.draw.line(self.background, GREY, (x * self.cell_width, 0),
+                             (x * self.cell_width, HEIGHT))
+        for x in range(HEIGHT // self.cell_height):
+            pygame.draw.line(self.background, GREY, (0, x * self.cell_height),
+                             (WIDTH, x * self.cell_height))
         # for coin in self.coins:
         #     pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
         #                                                        coin.y*self.cell_height, self.cell_width, self.cell_height))
@@ -123,8 +122,7 @@ class App:
                         self.coins.append(vec(xidx, yidx))
         self.state = "playing"
 
-
-########################### INTRO FUNCTIONS ####################################
+    ########################### INTRO FUNCTIONS ####################################
 
     def start_events(self):
         for event in pygame.event.get():
@@ -139,16 +137,16 @@ class App:
 
     def start_draw(self):
         bg = pygame.image.load('maze.png')
-        self.screen.blit(bg, (25,25))
+        self.screen.blit(bg, (25, 25))
         self.draw_text('PUSH "SPACE" BAR', self.screen, [
-                       WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (255, 255, 0), START_FONT, centered=True)
+            WIDTH // 2, HEIGHT // 2 - 50], START_TEXT_SIZE, (255, 255, 0), START_FONT, centered=True)
         self.draw_text('1 PLAYER ONLY', self.screen, [
-                       WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (255, 255, 255), START_FONT, centered=True)
-        #self.draw_text('HIGH SCORE', self.screen, [4, 0],
+            WIDTH // 2, HEIGHT // 2 + 50], START_TEXT_SIZE, (255, 255, 255), START_FONT, centered=True)
+        # self.draw_text('HIGH SCORE', self.screen, [4, 0],
         #               START_TEXT_SIZE, (255, 255, 255), START_FONT)
         pygame.display.update()
 
-########################### PLAYING FUNCTIONS ##################################
+    ########################### PLAYING FUNCTIONS ##################################
 
     def playing_events(self):
         for event in pygame.event.get():
@@ -168,22 +166,20 @@ class App:
         self.player.update()
         for enemy in self.enemies:
             enemy.update()
-            
+
         for enemy in self.enemies:
             if enemy.grid_pos == self.player.grid_pos:
                 self.remove_life()
                 pygame.mixer.Sound.play(self.player.death_sound)
 
-                
-
     def playing_draw(self):
         self.screen.fill(BLACK)
-        self.screen.blit(self.background, (TOP_BOTTOM_BUFFER//2, TOP_BOTTOM_BUFFER//2))
+        self.screen.blit(self.background, (TOP_BOTTOM_BUFFER // 2, TOP_BOTTOM_BUFFER // 2))
         self.draw_coins()
         # self.draw_grid()
         self.draw_text('CURRENT SCORE: {}'.format(self.player.current_score),
                        self.screen, [90, 10], 18, WHITE, START_FONT)
-        self.draw_text('HIGH SCORE: 0', self.screen, [WIDTH//2+60, 10], 18, WHITE, START_FONT)
+        self.draw_text('HIGH SCORE: 0', self.screen, [WIDTH // 2 + 60, 10], 18, WHITE, START_FONT)
         self.player.draw()
 
         for enemy in self.enemies:
@@ -208,9 +204,10 @@ class App:
     def draw_coins(self):
         for coin in self.coins:
             pygame.draw.circle(self.screen, (255, 255, 0),
-                               (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
-                                int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
-########################### GAME OVER FUNCTIONS ################################
+                               (int(coin.x * self.cell_width) + self.cell_width // 2 + TOP_BOTTOM_BUFFER // 2,
+                                int(coin.y * self.cell_height) + self.cell_height // 2 + TOP_BOTTOM_BUFFER // 2), 5)
+
+    ########################### GAME OVER FUNCTIONS ################################
 
     def game_over_events(self):
         for event in pygame.event.get():
@@ -229,9 +226,9 @@ class App:
         self.screen.blit(bg, (25, 25))
         quit_text = "Press the escape button to QUIT"
         again_text = "Press SPACE bar to PLAY AGAIN"
-        self.draw_text("GAME OVER", self.screen, [WIDTH//2, 100],  52, RED, "arial", centered=True)
+        self.draw_text("GAME OVER", self.screen, [WIDTH // 2, 100], 52, RED, "arial", centered=True)
         self.draw_text(again_text, self.screen, [
-                       WIDTH//2, HEIGHT//2],  36, (190, 190, 190), "arial", centered=True)
+            WIDTH // 2, HEIGHT // 2], 36, (190, 190, 190), "arial", centered=True)
         self.draw_text(quit_text, self.screen, [
-                       WIDTH//2, HEIGHT//1.5],  36, (190, 190, 190), "arial", centered=True)
+            WIDTH // 2, HEIGHT // 1.5], 36, (190, 190, 190), "arial", centered=True)
         pygame.display.update()

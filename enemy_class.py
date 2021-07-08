@@ -16,7 +16,7 @@ class Enemy:
         self.sprite_sheet = pygame.image.load('sprites/spritesheet.png').convert()
         self.starting_pos = [pos.x, pos.y]
         self.pix_pos = self.get_pix_pos()
-        self.radius = int(self.app.cell_width//2.3)
+        self.radius = int(self.app.cell_width // 2.3)
         self.number = number
         self.colour = self.set_colour()
         self.sprite = self.get_sprite(209, 261, 50, 50)
@@ -36,10 +36,10 @@ class Enemy:
                 self.move()
 
         # Setting grid position in reference to pix position
-        self.grid_pos[0] = (self.pix_pos[0]-TOP_BOTTOM_BUFFER +
-                            self.app.cell_width//2)//self.app.cell_width+1
-        self.grid_pos[1] = (self.pix_pos[1]-TOP_BOTTOM_BUFFER +
-                            self.app.cell_height//2)//self.app.cell_height+1
+        self.grid_pos[0] = (self.pix_pos[0] - TOP_BOTTOM_BUFFER +
+                            self.app.cell_width // 2) // self.app.cell_width + 1
+        self.grid_pos[1] = (self.pix_pos[1] - TOP_BOTTOM_BUFFER +
+                            self.app.cell_height // 2) // self.app.cell_height + 1
 
     def get_sprite(self, x, y, w, h):
         sprite = pygame.Surface((w, h))
@@ -51,47 +51,46 @@ class Enemy:
     def draw(self):
 
         if self.colour == "red":
-            if self.direction == vec(-1, 0): # left
+            if self.direction == vec(-1, 0):  # left
                 self.sprite = self.get_sprite(209, 261, 50, 50)
-            if self.direction == vec(1, 0): # right
+            if self.direction == vec(1, 0):  # right
                 self.sprite = self.get_sprite(261, 261, 50, 50)
-            if self.direction == vec(0, 1): # down
+            if self.direction == vec(0, 1):  # down
                 self.sprite = self.get_sprite(157, 261, 50, 50)
-            if self.direction == vec(0, -1): # up
+            if self.direction == vec(0, -1):  # up
                 self.sprite = self.get_sprite(313, 1, 50, 50)
-            
-        if self.colour == "green":
-            if self.direction == vec(-1, 0): # left
-                self.sprite = self.get_sprite(105, 53, 50, 50)
-            if self.direction == vec(1, 0): # right
-                self.sprite = self.get_sprite(157, 53, 50, 50)
-            if self.direction == vec(0, 1): # down
-                self.sprite = self.get_sprite(53, 53, 50, 50)
-            if self.direction == vec(0, -1): # up
-                self.sprite = self.get_sprite(209, 53, 50, 50)
-            
-        if self.colour == "pink":
-            if self.direction == vec(-1, 0): # left
-                self.sprite = self.get_sprite(53, 209, 50, 50)
-            if self.direction == vec(1, 0): # right
-                self.sprite = self.get_sprite(157, 209, 50, 50)
-            if self.direction == vec(0, 1): # down
-                self.sprite = self.get_sprite(53, 209, 50, 50)
-            if self.direction == vec(0, -1): # up
-                self.sprite = self.get_sprite(209, 209, 50, 50)
-            
-        if self.colour == "orange":
-            if self.direction == vec(-1, 0): # left
-                self.sprite = self.get_sprite(53, 105, 50, 50)
-            if self.direction == vec(1, 0): # right
-                self.sprite = self.get_sprite(105, 105, 50, 50)
-            if self.direction == vec(0, 1): # down
-                self.sprite = self.get_sprite(1, 105, 50, 50)
-            if self.direction == vec(0, -1): # up
-                self.sprite = self.get_sprite(157, 105, 50, 50)
-        
 
-        self.app.screen.blit(self.sprite, (self.pix_pos[0]-15, self.pix_pos[1]-15))
+        if self.colour == "green":
+            if self.direction == vec(-1, 0):  # left
+                self.sprite = self.get_sprite(105, 53, 50, 50)
+            if self.direction == vec(1, 0):  # right
+                self.sprite = self.get_sprite(157, 53, 50, 50)
+            if self.direction == vec(0, 1):  # down
+                self.sprite = self.get_sprite(53, 53, 50, 50)
+            if self.direction == vec(0, -1):  # up
+                self.sprite = self.get_sprite(209, 53, 50, 50)
+
+        if self.colour == "pink":
+            if self.direction == vec(-1, 0):  # left
+                self.sprite = self.get_sprite(53, 209, 50, 50)
+            if self.direction == vec(1, 0):  # right
+                self.sprite = self.get_sprite(157, 209, 50, 50)
+            if self.direction == vec(0, 1):  # down
+                self.sprite = self.get_sprite(53, 209, 50, 50)
+            if self.direction == vec(0, -1):  # up
+                self.sprite = self.get_sprite(209, 209, 50, 50)
+
+        if self.colour == "orange":
+            if self.direction == vec(-1, 0):  # left
+                self.sprite = self.get_sprite(53, 105, 50, 50)
+            if self.direction == vec(1, 0):  # right
+                self.sprite = self.get_sprite(105, 105, 50, 50)
+            if self.direction == vec(0, 1):  # down
+                self.sprite = self.get_sprite(1, 105, 50, 50)
+            if self.direction == vec(0, -1):  # up
+                self.sprite = self.get_sprite(157, 105, 50, 50)
+
+        self.app.screen.blit(self.sprite, (self.pix_pos[0] - 15, self.pix_pos[1] - 15))
 
     def set_speed(self):
         if self.personality in ["speedy", "scared"]:
@@ -104,20 +103,20 @@ class Enemy:
         if self.personality == "speedy" or self.personality == "slow":
             return self.app.player.grid_pos
         else:
-            if self.app.player.grid_pos[0] > COLS//2 and self.app.player.grid_pos[1] > ROWS//2:
+            if self.app.player.grid_pos[0] > COLS // 2 and self.app.player.grid_pos[1] > ROWS // 2:
                 return vec(1, 1)
-            if self.app.player.grid_pos[0] > COLS//2 and self.app.player.grid_pos[1] < ROWS//2:
-                return vec(1, ROWS-2)
-            if self.app.player.grid_pos[0] < COLS//2 and self.app.player.grid_pos[1] > ROWS//2:
-                return vec(COLS-2, 1)
+            if self.app.player.grid_pos[0] > COLS // 2 and self.app.player.grid_pos[1] < ROWS // 2:
+                return vec(1, ROWS - 2)
+            if self.app.player.grid_pos[0] < COLS // 2 and self.app.player.grid_pos[1] > ROWS // 2:
+                return vec(COLS - 2, 1)
             else:
-                return vec(COLS-2, ROWS-2)
+                return vec(COLS - 2, ROWS - 2)
 
     def time_to_move(self):
-        if int(self.pix_pos.x+TOP_BOTTOM_BUFFER//2) % self.app.cell_width == 0:
+        if int(self.pix_pos.x + TOP_BOTTOM_BUFFER // 2) % self.app.cell_width == 0:
             if self.direction == vec(1, 0) or self.direction == vec(-1, 0) or self.direction == vec(0, 0):
                 return True
-        if int(self.pix_pos.y+TOP_BOTTOM_BUFFER//2) % self.app.cell_height == 0:
+        if int(self.pix_pos.y + TOP_BOTTOM_BUFFER // 2) % self.app.cell_height == 0:
             if self.direction == vec(0, 1) or self.direction == vec(0, -1) or self.direction == vec(0, 0):
                 return True
         return False
@@ -140,7 +139,7 @@ class Enemy:
 
     def find_next_cell_in_path(self, target):
         path = self.BFS([int(self.grid_pos.x), int(self.grid_pos.y)], [
-                        int(target[0]), int(target[1])])
+            int(target[0]), int(target[1])])
         return path[1]
 
     def BFS(self, start, target):
@@ -160,8 +159,8 @@ class Enemy:
             else:
                 neighbours = [[0, -1], [1, 0], [0, 1], [-1, 0]]
                 for neighbour in neighbours:
-                    if neighbour[0]+current[0] >= 0 and neighbour[0] + current[0] < len(grid[0]):
-                        if neighbour[1]+current[1] >= 0 and neighbour[1] + current[1] < len(grid):
+                    if 0 <= neighbour[0] + current[0] < len(grid[0]):
+                        if 0 <= neighbour[1] + current[1] < len(grid):
                             next_cell = [neighbour[0] + current[0], neighbour[1] + current[1]]
                             if next_cell not in visited:
                                 if grid[next_cell[1]][next_cell[0]] != 1:
@@ -192,9 +191,9 @@ class Enemy:
         return vec(x_dir, y_dir)
 
     def get_pix_pos(self):
-        return vec((self.grid_pos.x*self.app.cell_width)+TOP_BOTTOM_BUFFER//2+self.app.cell_width//2,
-                   (self.grid_pos.y*self.app.cell_height)+TOP_BOTTOM_BUFFER//2 +
-                   self.app.cell_height//2)
+        return vec((self.grid_pos.x * self.app.cell_width) + TOP_BOTTOM_BUFFER // 2 + self.app.cell_width // 2,
+                   (self.grid_pos.y * self.app.cell_height) + TOP_BOTTOM_BUFFER // 2 +
+                   self.app.cell_height // 2)
 
     def set_colour(self):
         if self.number == 0:
