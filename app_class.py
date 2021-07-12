@@ -136,8 +136,8 @@ class App:
         pass
 
     def start_draw(self):
-        bg = pygame.image.load('maze.png')
-        self.screen.blit(bg, (25, 25))
+        bg = pygame.image.load('pacman_bg.png')
+        self.screen.blit(bg, (0, 10))
         self.draw_text('PUSH "SPACE" BAR', self.screen, [
             WIDTH // 2, HEIGHT // 2 - 50], START_TEXT_SIZE, (255, 255, 0), START_FONT, centered=True)
         self.draw_text('1 PLAYER ONLY', self.screen, [
@@ -222,8 +222,8 @@ class App:
         pass
 
     def game_over_draw(self):
-        bg = pygame.image.load('maze.png')
-        self.screen.blit(bg, (25, 25))
+        bg = pygame.image.load('pacman_bg.png')
+        self.screen.blit(bg, (0, 10))
         quit_text = "Press the escape button to QUIT"
         again_text = "Press SPACE bar to PLAY AGAIN"
         self.draw_text("GAME OVER", self.screen, [WIDTH // 2, 100], 52, RED, "arial", centered=True)
